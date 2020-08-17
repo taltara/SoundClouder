@@ -1,0 +1,88 @@
+.soundclouder {
+  height: calc(100% - 70px);
+  width: 100%;
+  overflow: scroll;
+  &.soundclouder-light {
+    background-color: #fff;
+
+    .data-block {
+      &.active-block {
+        animation: pulse-light 0.5s cubic-bezier(0.42, 0.5, 0.25, 1) infinite;
+      }
+    }
+  }
+  &.soundclouder-dark {
+    background-color: #000;
+
+    .data-block {
+      background-color: #000;
+      color: white;
+      box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.75);
+
+      .type-switcher {
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.25);
+      }
+
+      .search-component {
+        input {
+          color: white;
+          background-color: black;
+        }
+
+        .background-arrow {
+          fill: rgba(255, 255, 255, 0.5);
+        }
+
+        .arrow {
+          fill: rgba(255, 255, 255, 0.75);
+        }
+
+        .list-container {
+          .list-item {
+            border-color: rgba(255, 255, 255, 0.05);
+
+            &:hover {
+              background-color: $clr1;
+            }
+          }
+        }
+      }
+
+      .player-component {
+        background-color: rgba(150, 150, 150, 0.15);
+      }
+
+      .list-container {
+        .list-item {
+          border-color: rgba(255, 255, 255, 0.05);
+
+          &:hover {
+            background-color: rgba(192, 192, 192, 0.15);
+          }
+        }
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 9px 0px rgba(255, 255, 255, 0.75);
+      }
+
+      &.active-block {
+        animation: pulse-dark 0.5s cubic-bezier(0.42, 0.5, 0.25, 1) infinite;
+      }
+    }
+  }
+
+  & > *:not(:last-of-type) {
+    margin-right: 20px;
+  }
+}
+
+@media (max-height: 375px) {
+  .soundclouder {
+    margin-top: 100px;
+    height: 100%;
+    width: 100%;
+    overflow: unset;
+  }
+}

@@ -1,0 +1,188 @@
+@keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+
+@keyframes gearturn {
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(90deg);
+  }
+  66% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  25% {
+    background-color: rgba(245, 197, 24, 0.5);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  75% {
+    background-color: rgba(245, 197, 24, 0.5);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  25% {
+    background-color: rgba(245, 197, 24, 0.5);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  75% {
+    background-color: rgba(245, 197, 24, 0.5);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+}
+
+@keyframes loading-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(1deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes pulse-light {
+  0% {
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
+  }
+  20% {
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75);
+  }
+
+  40% {
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  60% {
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  }
+  80% {
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
+  }
+  100% {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+}
+
+@keyframes pulse-dark {
+  0% {
+    box-shadow: 0px 0px 9px 0px rgba(255, 255, 255, 0.75);
+  }
+  20% {
+    box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.75);
+  }
+
+  40% {
+    box-shadow: 0px 0px 9px 0px rgba(255, 255, 255, 0.75);
+  }
+
+  60% {
+    box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.75);
+  }
+  80% {
+    box-shadow: 0px 0px 1px 0px rgba(255, 255, 255, 0.75);
+  }
+  100% {
+    box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.75);
+  }
+}
+
+[anim="general"],
+[anim="activeTab"] {
+  //  Customize effect by defining the following
+  //  variables on the parent element
+  //  --ripple-background: white;
+  //  --ripple-opacity: 0.3;
+  //  --ripple-duration: 600ms;
+  //  --ripple-easing: linear;
+
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    background: var(--ripple-background, white);
+    border-radius: 50%;
+    pointer-events: none;
+
+    //  position and size
+    top: calc(var(--y) * 1px);
+    left: calc(var(--x) * 1px);
+    width: calc(var(--d) * 1px);
+    height: calc(var(--d) * 1px);
+
+    //  animated properties
+    opacity: calc(var(--o, 1) * var(--ripple-opacity, 0.3));
+    transition: calc(var(--t, 0) * var(--ripple-duration, 300ms))
+      var(--ripple-easing, linear);
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+    transform-origin: center;
+  }
+}
+
+[anim="activeTab"] {
+  &:before {
+    background: var(
+      --ripple-background,
+      lighten($color: #ff9133, $amount: 10%)
+    );
+    //  animated properties
+    opacity: calc(var(--o, 1) * var(--ripple-opacity, 0.5));
+    transition: calc(var(--t, 0) * var(--ripple-duration, 400ms))
+      var(--ripple-easing, linear);
+  }
+}

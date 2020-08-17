@@ -1,0 +1,55 @@
+// Bariol
+@font-face {
+  font-family: "interBold";
+  src: url("../fonts/interstateBold.otf") format("otf");
+}
+
+// // Toe The Lineless
+// @font-face {
+//   font-family: "toeTheLineless";
+//   src: url("../fonts/toeTheLineless/toeTheLineless.woff2") format("woff2");
+// }
+
+// Animosa
+$animosa-font-path: "../fonts/animosa";
+
+// @font-face {
+//   font-family: "animosaBold";
+//   src: url("#{$animosa-font-path}/animosaBold.woff2") format("woff2"),
+//     url("#{$animosa-font-path}/animosaBold.woff") format("woff"),
+//     url("#{$animosa-font-path}/animosaBold.ttf") format("truetype"),
+//     url("#{$animosa-font-path}/animosaBold.eot") format("eot");
+// }
+
+@font-face {
+  font-family: "animosaExtraBold";
+  src: url("#{$animosa-font-path}/animosaExtraBold.woff2") format("woff2"),
+    url("#{$animosa-font-path}/animosaExtraBold.woff") format("woff"),
+    url("#{$animosa-font-path}/animosaExtraBold.ttf") format("truetype"),
+    url("#{$animosa-font-path}/animosaExtraBold.eot") format("eot");
+}
+
+@font-face {
+  font-family: "animosaExtraLight";
+  src: url("#{$animosa-font-path}/animosaExtraLight.woff2") format("woff2"),
+    url("#{$animosa-font-path}/animosaExtraLight.woff") format("woff"),
+    url("#{$animosa-font-path}/animosaExtraLight.ttf") format("truetype"),
+    url("#{$animosa-font-path}/animosaExtraLight.eot") format("eot");
+}
+
+// @font-face {
+//   font-family: "animosaLight";
+//   src: url("#{$animosa-font-path}/animosaLight.woff2") format("woff2"),
+//     url("#{$animosa-font-path}/animosaLight.woff") format("woff"),
+//     url("#{$animosa-font-path}/animosaLight.ttf") format("truetype"),
+//     url("#{$animosa-font-path}/animosaLight.eot") format("eot");
+// }
+
+// @font-face {
+//   font-family: "animosa";
+//   src: url("#{$animosa-font-path}/animosa.woff2") format("woff2"),
+//     url("#{$animosa-font-path}/animosa.woff") format("woff"),
+//     url("#{$animosa-font-path}/animosa.ttf") format("truetype"),
+//     url("#{$animosa-font-path}/animosa.eot") format("eot");
+// }
+

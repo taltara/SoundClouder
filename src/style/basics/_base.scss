@@ -1,0 +1,68 @@
+
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  font-family: animosaExtraLight;
+  // overflow-y: hidden;
+}
+
+.App {
+  height: 100vh;
+  &.App-dark {
+    background-color: #000;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+.secondary {
+  opacity: 0.5;
+  font-size: 14px;
+  margin-right: 7.5px;
+}
+
+
+
+
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+  -webkit-border-radius: 100px;
+}

@@ -1,0 +1,24 @@
+// Setup
+@import "setup/variables.scss";
+@import "setup/functions.scss";
+@import "setup/typography.scss";
+
+// Basics
+@import "basics/helpers.scss";
+@import "basics/base.scss";
+@import "basics/buttons";
+@import "basics/animations.scss";
+
+// Pages
+@import "pages/SoundClouder.scss";
+
+// Components
+@import "components/DataBlock.scss";
+@import "components/SearchComponent.scss";
+@import "components/PlayerComponent.scss";
+@import "components/HistoryComponent.scss";
+@import "components/ListContainer.scss";
+@import "components/Navbar.scss";
+// @import "cmps/home/Home.scss";
+// @import "cmps/about/About";
+

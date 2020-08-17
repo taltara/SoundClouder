@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+import "./style/global.scss";
+import SoundClouder from "./pages/SoundClouder";
+import Navbar from "./components/navigation/Navbar/Navbar";
+
+import { Switch, Route } from "react-router-dom";
 
 function App() {
+
+  const [theme, setTheme] = useState("light");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App App-${theme} flex column align-center space-start`}>
+      <Navbar theme={theme} setTheme={setTheme} />
+      <SoundClouder theme={theme} />
     </div>
   );
 }

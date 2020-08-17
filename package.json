@@ -6,9 +6,19 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "html-react-parser": "^0.13.0",
+    "jquery": "^3.5.1",
+    "load-script": "^1.0.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-player": "^2.6.0",
+    "react-range": "^1.6.7",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "react-spring": "^9.0.0-rc.3",
+    "react-tilt": "^0.1.4",
+    "soundcloud": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

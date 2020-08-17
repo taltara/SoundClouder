@@ -1,0 +1,35 @@
+.history-component {
+  height: 100%;
+  width: 300px;
+
+  p {
+    font-family: animosaExtraBold;
+    font-size: 27.5px;
+    margin-inline-start: 5px;
+    -webkit-user-select: none;
+    margin-bottom: 5px;
+  }
+
+  .list-container {
+    margin: 0 5px;
+    .list-item {
+      &:hover {
+        background-color: opacify($color: #d7e1ec, $amount: 0.5);
+      }
+
+      .item-label {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media (min-height: 1200px) {
+  .history-component {
+    width: 450px;
+
+    p {
+      font-size: 35px;
+    }
+  }
+}

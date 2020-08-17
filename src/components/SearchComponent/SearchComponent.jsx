@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from "react";
+
+import TiltButton from "../navigation/TiltButton/TiltButton";
+import ListContainer from "../general/ListContainer/ListContainer";
+import LoadingRing from "./LoadingRing";
+
+const SearchComponent = (props) => {
+  const {
+    onSearch,
+    searchResults,
+    setSearchHistory,
+    setChosenItem,
+    saveHistory,
+    saveKey,
+    searchHistory,
+    onSearchNext,
+    onSearchBack,
+    next,
+    before,
+    playerCoords
+
+  } = props;
+  const [currSearch, setCurrSearch] = useState("");
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSearching(false);
+    }, 500);
+  }, [searchResults]);
+
+  useEffect(() => {
+    if(searchHistory.length) {
+
+      saveHistory(saveKey, searchHistory);
+    }
+  }, [searchHistory]);
+
+  const onSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searching) return;
+    setSearching(true);
+    setSearchHistory((prevState) => {
+      let history = [...prevState];
+      if(history[0].label !== currSearch) {
+        history.unshift({ label: currSearch });
+      }
+      return history;
+    });
+    onSearch(currSearch);
+  };
+
+  const onSearchChange = ({ target }) => {
+    setCurrSearch(target.value);
+  };
+  // console.log(searchResults);
+  return (
+    <div className="search-component" onSubmit={onSearchSubmit}>
+      <form action="" className="search-form flex align-center space-between">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search SoundCloud"
+          onChange={onSearchChange}
+          value={currSearch}
+          className="search-input"
+          autoFocus={true}
+        />
+        {searching ? (
+          <LoadingRing />
+        ) : (
+          <TiltButton
+            label={"Go"}
+            activeLinkClass="activeTab"
+            isLinkToExact={true}
+            isTilt={true}
+            tiltOptions={{ scale: 1.05 }}
+            animation="general"
+            //   onClick={onSearchSubmit}
+            buttonClass="tilt-button"
+            buttonForumType="submit"
+          />
+        )}
+      </form>
+
+      <ListContainer
+        listItems={searchResults}
+        isStaticList={false}
+        setChosenItem={setChosenItem}
+        onSearchNext={onSearchNext}
+        onSearchBack={onSearchBack}
+        next={next}
+        before={before}
+        playerCoords={playerCoords}
+      />
+    </div>
+  );
+};
+
+export default SearchComponent;

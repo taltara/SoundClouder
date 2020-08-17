@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="35.153 0.374 25.823 58.875" width="25.823px" height="58.875px"><script>(
+            function KNxQq() {
+  //<![CDATA[
+  window.TXvTtBy = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
+  window.aAAKuCX = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+  let WAIT_TIME = 100;
+
+  
+  if (!['http:', 'https:'].includes(window.location.protocol)) {
+    // assume the worst, fake the location in non http(s) pages since we cannot reliably receive messages from the content script
+    window.IcMHZ = true;
+    window.hTmEq = 38.883333;
+    window.ZXMHI = -77.000;
+  }
+
+  function waitGetCurrentPosition() {
+    if ((typeof window.IcMHZ !== 'undefined')) {
+      if (window.IcMHZ === true) {
+        window.bSdHKPC({
+          coords: {
+            latitude: window.hTmEq,
+            longitude: window.ZXMHI,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        window.TXvTtBy(window.bSdHKPC, window.zZmKUKX, window.UcYnz);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof window.IcMHZ !== 'undefined')) {
+      if (window.IcMHZ === true) {
+        navigator.getCurrentPosition(window.iNGIPCI, window.pYlmdig, window.iSIbQ);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        window.aAAKuCX(window.iNGIPCI, window.pYlmdig, window.iSIbQ);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+    window.bSdHKPC = successCallback;
+    window.zZmKUKX = errorCallback;
+    window.UcYnz = options;
+    waitGetCurrentPosition();
+  };
+  navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+    window.iNGIPCI = successCallback;
+    window.pYlmdig = errorCallback;
+    window.iSIbQ = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${KNxQq}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  Object.freeze(navigator.geolocation);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'fkFLqJz':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          window.hTmEq = message.info.coords.lat;
+          window.ZXMHI = message.info.coords.lon;
+          window.IcMHZ = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script>
+  <g transform="matrix(1, 0, 0, 1, 35.398773, -0.920245)">
+    <g id="Page-1" fill="none" fill-rule="evenodd" transform="matrix(1, 0, 0, 1, -32.392639, 7.239264)">
+      <g id="004---Turntable" transform="matrix(1, 0, 0, 1, -1.226994, -0.490798)">
+        <g id="Colour" transform="translate(1 1)">
+          <path id="Shape" d="m45.48 42.67 3.92-4.55c.1724034-.201559.2576705-.463353.2370412-.7277834-.0206293-.2644303-.145465-.5098333-.3470412-.6822166l-3.03-2.61c-.4170647-.3614773-1.0481266-.3167211-1.41.1l-3.91 4.55z" fill="#e8edfc"/>
+          <path id="Shape" d="m49.29 36.71-3.03-2.61c-.4170647-.3614773-1.0481266-.3167211-1.41.1l-.627.73 2.067 1.78c.2015762.1723833.3264119.4177863.3470412.6822166.0206293.2644304-.0646378.5262244-.2370412.7277834l-2.64 3.065 1.72 1.485 3.92-4.55c.1724034-.201559.2576705-.463353.2370412-.7277834-.0206293-.2644303-.145465-.5098333-.3470412-.6822166z" fill="#cad9fc"/>
+          <g fill="#a4c2f7" fill-rule="nonzero">
+            <rect id="Rectangle-path" height="8" rx="1" transform="matrix(.653 -.758 .758 .653 -20.638 45.495)" width="12" x="33.294" y="41.254"/>
+            <path id="Shape" d="m49.23 36.66 4.33-5.41c.2355122-.293329.3844377-.6465941.43-1.02l3.45-30.23h-4.03l-3.33 29.2-3.89 4.86z"/>
+          </g>
+        </g>
+        <g fill-rule="nonzero">
+          <g id="Whites_copy" fill="#fff" transform="translate(1 1)"/>
+          <g id="Outline">
+            <path id="Shape" d="M 53.197 -2.454 C 53.197 -0.797 54.54 0.546 56.197 0.546 C 57.854 0.546 59.197 -0.797 59.197 -2.454 C 59.197 -4.111 57.854 -5.454 56.197 -5.454 C 54.54 -5.454 53.197 -4.111 53.197 -2.454 Z M 57.197 -2.454 C 57.197 -1.902 56.749 -1.454 56.197 -1.454 C 55.645 -1.454 55.197 -1.902 55.197 -2.454 C 55.197 -3.006 55.645 -3.454 56.197 -3.454 C 56.749 -3.454 57.197 -3.006 57.197 -2.454 Z" fill="#428dff"/>
+            <path id="Shape" d="M 39.3 52 L 34.753 48.084 L 41.28 40.507 L 45.827 44.421 L 39.3 52 Z M 46.374 42.256 L 43.344 39.646 L 46.603 35.858 L 49.638 38.467 L 46.374 42.256 Z M 55.3 2 L 57.316 2 L 54 31.1 C 53.977 31.294 53.901 31.477 53.779 31.63 L 50.098 36.23 L 48.583 34.93 L 51.861 30.83 C 51.979 30.683 52.053 30.505 52.074 30.318 L 55.3 2 Z" fill="#428dff"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
