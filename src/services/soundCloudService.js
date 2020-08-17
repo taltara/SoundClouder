@@ -15,6 +15,7 @@ async function getCloudSounds(searchObj) {
     q,
     limit: PAGE_SIZE_LIMIT,
     linked_partitioning: 1,
+    offset: 1
   }).then((tracks) => {
     console.log(tracks);
     return Promise.resolve(tracks);
@@ -26,7 +27,7 @@ const getNextTracks = (link) => {
   return fetch(link)
     .then((res) => res.json())
     .then((result) => {
-    //  console.log(result);
+     console.log(result);
      return result;
     });
 };

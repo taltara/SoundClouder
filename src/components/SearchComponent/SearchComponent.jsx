@@ -35,9 +35,11 @@ const SearchComponent = (props) => {
   }, [searchHistory]);
 
   const onSearchSubmit = (event) => {
+    console.log("YO");
     event.preventDefault();
     if (searching) return;
     setSearching(true);
+    onSearch(currSearch);
     setSearchHistory((prevState) => {
       let history = [...prevState];
       if (history.length) {
@@ -47,13 +49,12 @@ const SearchComponent = (props) => {
 
       return history;
     });
-    onSearch(currSearch);
   };
 
   const onSearchChange = ({ target }) => {
     setCurrSearch(target.value);
   };
-  // console.log(searchResults);
+
   return (
     <div className="search-component" onSubmit={onSearchSubmit}>
       <form action="" className="search-form flex align-center space-between">
