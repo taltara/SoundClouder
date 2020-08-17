@@ -86,7 +86,7 @@ const ListContainer = (props) => {
       className={`list-container-wrapper flex column align-center space-between ${wrapperClass}`}
     >
       <ul
-        className={`list-container flex ${containerClass} align-center space-start`}
+        className={`list-container flex ${containerClass} space-start`}
       >
         {itemsShown.map((item, index) => {
           // console.log(item);
