@@ -5,7 +5,7 @@ import utilServices from "../../../services/utilService";
 import { useSpring, animated } from "react-spring";
 
 const ListItem = (props) => {
-  let itemRef = createRef();
+
   const { item, onItemClick, index, classAdd, isStaticList, animName, labelStyleAdd } = props;
   const [key, setKey] = useState(1);
   const [isHovering, setIsHovering] = useState(false);
@@ -42,7 +42,7 @@ const ListItem = (props) => {
       <div className="item-label label-div" style={{ ...labelStyleAdd }}>{item.label}</div>
     );
 
-  const onClickFunc = onItemClick ? () => onItemClick(index, itemRef.current.getBoundingClientRect()) : null;
+  const onClickFunc = onItemClick ? () => onItemClick(index) : null;
   return (
     <li
       onMouseEnter={() => setIsHovering(true)}
@@ -50,7 +50,7 @@ const ListItem = (props) => {
       onClick={onClickFunc}
       className={`list-item ${classAdd} flex align-center space-start`}
       anim={animName}
-      ref={itemRef}
+
     >
       {textToShow}
     </li>

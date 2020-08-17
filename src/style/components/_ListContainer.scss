@@ -2,9 +2,16 @@
   height: calc(100% - 61px);
   // padding: 0 5px;
   .list-container {
+    transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
     overflow: hidden;
     height: 100%;
     width: 100%;
+    transform: translateX(-150%) skewX(-10deg);
+
+    &.shown-items {
+      transform: translateX(0%) skewX(0deg);
+    }
+
     .list-item {
       transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
       // max-width: 300px;
@@ -68,6 +75,10 @@
       & > * {
         margin: 10px;
       }
+    }
+
+    &.exit-class {
+      opacity: 0;
     }
 
     @media (min-height: 1200px) {
@@ -241,6 +252,8 @@
           height: calc(20% - 44px / 5);
         }
       }
+
+      transform: translateX(0%) skewX(0deg);
     }
   }
 }

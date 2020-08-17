@@ -4,7 +4,6 @@ import "./style/global.scss";
 import SoundClouder from "./pages/SoundClouder";
 import Navbar from "./components/navigation/Navbar/Navbar";
 
-import { Switch, Route } from "react-router-dom";
 
 function App() {
 

@@ -3,19 +3,18 @@ import React, { useState, useEffect, createRef } from "react";
 import sCService from "../../services/soundCloudService.js";
 
 import ReactPlayer from "react-player";
-// import loadScript from "load-script";
-// var parse = require("html-react-parser");
 
 let middleRef = createRef();
 
 const PlayerComponent = (props) => {
-  // const { track, getPlayerByUrl, togglePlay, isPlaying } = props;
-  const { track, setPlayerCoords, togglePlay, isPlaying } = props;
+
+  const { track, setPlayerCoords } = props;
 
   const [playerClass, setPlayerClass] = useState("");
   const [imgStateClass, setImgStateClass] = useState("");
   const [playerVolume, setPlayerVolume] = useState(0.8);
   const [playedTrack, setPlayedTrack] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     sCService.initPlayerListeners();
@@ -23,7 +22,7 @@ const PlayerComponent = (props) => {
   }, []);
 
   useEffect(() => {
-    togglePlay(false);
+    setIsPlaying(false);
     setPlayerClass("");
     setTimeout(() => {
       setImgStateClass("shown");
@@ -48,20 +47,21 @@ const PlayerComponent = (props) => {
   };
 
   const onVolumeChange = ({ target }) => {
-    console.log(target.value);
+    // console.log(target.value);
     setPlayerVolume(+target.value);
   };
 
   const onImgClick = () => {
     // console.log(isPlaying ? "STOPPING" : "PLAYING");
-    togglePlay((prevState) => {
+    debugger;
+    setIsPlaying((prevState) => {
       sCService.togglePlay(prevState);
       return !prevState;
     });
   };
 
   const handlePlayToggle = (toPlay) => {
-    togglePlay(toPlay);
+    setIsPlaying(toPlay);
   };
 
   const imgClass = isPlaying ? "shown playing" : "";

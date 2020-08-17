@@ -20,7 +20,7 @@ const SoundClouder = (props) => {
   const [currChoice, setCurrChoice] = useState("");
   const [currChoiceData, setCurrChoiceData] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
+  
 
   const [playerCoords, setPlayerCoords] = useState({});
 
@@ -100,8 +100,8 @@ const SoundClouder = (props) => {
         <PlayerComponent
           track={currChoiceData}
           // getPlayerByUrl={sCService.getSoundCloudPlayer}
-          togglePlay={setIsPlaying}
-          isPlaying={isPlaying}
+          // togglePlay={setIsPlaying}
+          // isPlaying={isPlaying}
           setPlayerCoords={setPlayerCoords}
         />
       </DataBlock>

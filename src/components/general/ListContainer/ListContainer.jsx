@@ -26,20 +26,28 @@ const ListContainer = (props) => {
     onSearchBack,
     next,
     before,
-    playerCoords,
+    // playerCoords,
   } = props;
   const [didSearch, setDidSearch] = useState(false);
   const [itemsShown, setItemsShown] = useState([]);
+  const [listExitClass, setListExitClass] = useState("shown-items");
   const [selected, setSelected] = useState({ ...emptySelectedState });
 
   const [searchView, setSearchView] = useState("tiles");
 
   useEffect(() => {
+    console.log("HERE");
     if (listItems.length) {
       if (!didSearch) {
         setDidSearch(true);
       }
-      setItemsShown(listItems);
+      if (!isStaticList && selected.index === "")
+        setListExitClass("exit-class");
+      setTimeout(() => {
+        setItemsShown(listItems);
+        if (!isStaticList && selected.index === "")
+          setListExitClass("shown-items");
+      }, 500);
     } else {
       if (didSearch) {
         setItemsShown(
@@ -47,46 +55,62 @@ const ListContainer = (props) => {
         );
       }
     }
+    setSelected({ ...emptySelectedState });
   }, [listItems]);
 
-  const onItemClick = (index, itemCoords) => {
-
-    setChosenItem(index);
+  const onItemClick = (index) => {
     if (!isStaticList) {
-      setSelected({ index, coords: itemCoords });
+      setSelected({ index });
 
       setTimeout(() => {
         setSelected({ ...emptySelectedState });
-      }, 2000);
+      }, 1000);
     }
+    setChosenItem(index);
   };
 
   const getAnimationCoords = () => {
-    console.log(playerCoords, selected.coords);
-    return selected.coords ? {
-      transform: `translateX(${-(
-        selected.coords.left -
-        playerCoords.left +
-        190
-      )}px) translateY(${-(selected.coords.top - playerCoords.top) + 190}px)`,
+    // console.log(playerCoords, selected.coords);
+    const isLarge = window.innerHeight >= 1200;
+    //   return selected.coords
+    //     ? {
+    //         transform: `translateX(${-(selected.coords.left -
+    //         playerCoords.left) +
+    //         isLarge
+    //           ? 400
+    //           : 200}px) translateY(${
+    //           -(selected.coords.top - playerCoords.top) + isLarge ? -400 : -200
+    //         }px)`,
+    //         position: "absolute",
+    //         zIndex: 100,
+    //         opacity: 0,
+    //       }
+    //     : {};
+    return {
+      transform: `translateX(${isLarge ? "300" : "200"}%) translateY(-${
+        selected.index * isLarge ? 50 : 30
+      }px)`,
       position: "absolute",
       zIndex: 100,
       opacity: 0,
-    } : {};
+    };
   };
 
-  const containerClass =
+  let containerClass =
     isStaticList || searchView === "list"
       ? "column align-center"
       : "wrap align-start tiles-container";
 
+  // containerClass += itemsShown ? " shown-items" : "";
+
   const wrapperClass = isStaticList ? "static-wrap" : "non-static-wrap";
+  // console.log("HERE");
   return (
     <div
       className={`list-container-wrapper flex column align-center space-between ${wrapperClass}`}
     >
       <ul
-        className={`list-container flex ${containerClass} space-start`}
+        className={`list-container flex ${containerClass} space-start ${listExitClass}`}
       >
         {itemsShown.map((item, index) => {
           // console.log(item);
@@ -95,8 +119,7 @@ const ListContainer = (props) => {
             : `item${index}`;
           const labelStyleToAdd =
             selected.index !== index ? {} : getAnimationCoords();
-          const tileStyleToAdd =
-            selected.index === index ? "tile-play" : "";
+          const tileStyleToAdd = selected.index === index ? "tile-play" : "";
           const clickFunc = didSearch && !listItems.length ? null : onItemClick;
           return isStaticList || searchView === "list" || !clickFunc ? (
             <ListItem
@@ -122,7 +145,6 @@ const ListContainer = (props) => {
               }}
               tiltOptions={{ scale: 1.05 }}
               animation="general"
-              //   onClick={onSearchSubmit}
               buttonClass={`tilt-button tile-tilt item${index}`}
               onClick={clickFunc}
               tileStyleClassAdd={tileStyleToAdd}

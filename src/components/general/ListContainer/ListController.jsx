@@ -39,9 +39,6 @@ const ListController = (props) => {
   const nextClass = !next ? "no-next" : "";
   const beforeClass = !before ? "no-before" : "";
 
-  // if (next) {
-  //   services.getNextTracks(next);
-  // }
   return (
     <div className="list-controller flex align-center space-between">
       <div className={`arrow-container flex align-center space-start`}>
