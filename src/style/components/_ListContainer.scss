@@ -169,12 +169,24 @@
           .background-arrow {
             fill: lighten($color: rgba(65, 65, 65, 1), $amount: 5);
             transform: translateX(180px);
+
           }
 
           .arrow {
             fill: rgba(65, 65, 65, 1);
-            transform: translateX(180px);
+            transform: translateX(185px);
           }
+
+          @media (min-height: 1200px) {
+            .background-arrow{
+              transform: translateX(325px);
+            } 
+            .arrow {
+              transform: translateX(330px);
+            }
+          }
+
+          
         }
         &.no-next {
           &:hover {
