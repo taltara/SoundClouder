@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import services from "../../../services/soundCloudService";
 import storageService from "../../../services/storageService";
 import { KEY_VIEW } from "../../../services/auth";
 
@@ -13,18 +12,7 @@ import { ReactComponent as TilesIcon } from "../../../assets/tiles.svg";
 import TypeSwitcher from "../../navigation/TypeSwitcher/TypeSwitcher";
 
 const ListController = (props) => {
-  const { toggleView, onSearchNext, onSearchBack, next, before } = props;
-
-  
-
-  const initStarter = () => {
-    const viewPref = +storageService.loadFromStorage(KEY_VIEW);
-    // console.log(viewPref);
-    if (viewPref === 0 || viewPref === 1) return viewPref;
-    else return 0;
-  };
-
-  const [initIndex, setInitIndex] = useState(initStarter());
+  const { toggleView, onSearchNext, onSearchBack, next, before, canToggle, initToggle } = props;
 
   const onViewChange = () => {
     let previousView;
@@ -61,12 +49,13 @@ const ListController = (props) => {
           { type: "list", img: <ListIcon />, label: "" },
           { type: "tiles", img: <TilesIcon />, label: "" },
         ]}
-        initType={initIndex}
+        initType={initToggle}
         animation="activeTab"
         switcherClass="type-switcher"
         switcherImgClass="switcher-img"
         swticherLabelClass="switcher-label"
         switchOnStart={true}
+        disabled={canToggle}
       />
     </div>
   );

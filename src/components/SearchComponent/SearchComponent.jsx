@@ -17,7 +17,7 @@ const SearchComponent = (props) => {
     onSearchBack,
     next,
     before,
-    playerCoords,
+    // playerCoords,
   } = props;
   const [currSearch, setCurrSearch] = useState("");
   const [searching, setSearching] = useState(false);
@@ -35,11 +35,12 @@ const SearchComponent = (props) => {
   }, [searchHistory]);
 
   const onSearchSubmit = (event) => {
-    console.log("YO");
     event.preventDefault();
     if (searching) return;
+
     setSearching(true);
     onSearch(currSearch);
+
     setSearchHistory((prevState) => {
       let history = [...prevState];
       if (history.length) {
@@ -92,7 +93,7 @@ const SearchComponent = (props) => {
         onSearchBack={onSearchBack}
         next={next}
         before={before}
-        playerCoords={playerCoords}
+        // playerCoords={playerCoords}
       />
     </div>
   );

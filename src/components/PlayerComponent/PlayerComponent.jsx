@@ -8,7 +8,7 @@ let middleRef = createRef();
 
 const PlayerComponent = (props) => {
 
-  const { track, setPlayerCoords } = props;
+  const { track } = props;
 
   const [playerClass, setPlayerClass] = useState("");
   const [imgStateClass, setImgStateClass] = useState("");
@@ -18,7 +18,7 @@ const PlayerComponent = (props) => {
 
   useEffect(() => {
     sCService.initPlayerListeners();
-    getPlayerCoords();
+    // getPlayerCoords();
   }, []);
 
   useEffect(() => {
@@ -42,9 +42,9 @@ const PlayerComponent = (props) => {
     });
   }, [isPlaying]);
 
-  const getPlayerCoords = () => {
-    setPlayerCoords(middleRef.current.getBoundingClientRect());
-  };
+  // const getPlayerCoords = () => {
+  //   setPlayerCoords(middleRef.current.getBoundingClientRect());
+  // };
 
   const onVolumeChange = ({ target }) => {
     // console.log(target.value);

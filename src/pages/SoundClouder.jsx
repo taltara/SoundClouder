@@ -22,7 +22,7 @@ const SoundClouder = (props) => {
   const [searchHistory, setSearchHistory] = useState([]);
   
 
-  const [playerCoords, setPlayerCoords] = useState({});
+  // const [playerCoords, setPlayerCoords] = useState({});
 
   useEffect(() => {
     const currHistory = storageService.loadFromStorage(KEY_HISTORY);
@@ -93,16 +93,14 @@ const SoundClouder = (props) => {
           onSearchBack={onSearchBack}
           next={next}
           before={before}
-          playerCoords={playerCoords}
+          // playerCoords={playerCoords}
         />
       </DataBlock>
       <DataBlock tilts={true}>
         <PlayerComponent
           track={currChoiceData}
-          // getPlayerByUrl={sCService.getSoundCloudPlayer}
-          // togglePlay={setIsPlaying}
-          // isPlaying={isPlaying}
-          setPlayerCoords={setPlayerCoords}
+
+          // setPlayerCoords={setPlayerCoords}
         />
       </DataBlock>
       <DataBlock tilts={false}>

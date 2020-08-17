@@ -14,11 +14,10 @@ const TypeSwitcher = (props) => {
     switcherImgClass,
     swticherLabelClass,
     switchOnStart,
+    disabled,
   } = props;
 
-  const [currTypeIndex, setCurrTypeIndex] = useState(
-    switchOnStart ? (!initType ? dataTypes.length - 1 : initType - 1) : initType
-  );
+  const [currTypeIndex, setCurrTypeIndex] = useState(initType);
   const [switchTransitionClass, setSwitcherTransitionClass] = useState("");
   const [toggleCount, setToggleCount] = useState(0);
 
@@ -26,7 +25,7 @@ const TypeSwitcher = (props) => {
     setButtonRippleListeners(animation);
     if (switchOnStart) {
       setTimeout(() => {
-        toggleType();
+        toggleType(true);
       }, 100);
     }
   }, []);
@@ -51,7 +50,9 @@ const TypeSwitcher = (props) => {
     });
   };
 
-  const toggleType = () => {
+  const toggleType = (isStart = false) => {
+    console.log(disabled, dataTypes[0]);
+
     let newValue =
       currTypeIndex + 1 === dataTypes.length ? 0 : currTypeIndex + 1;
     let animationDirection = "";
@@ -67,7 +68,7 @@ const TypeSwitcher = (props) => {
       setSwitcherTransitionClass(`in-${animationDirection}`);
       setTimeout(() => {
         setCurrTypeIndex(newValue);
-        handleTypeChange(dataTypes[newValue].type);
+        if(!isStart)handleTypeChange(dataTypes[newValue].type);
         setTimeout(() => {
           setSwitcherTransitionClass("");
         }, 100);
@@ -85,7 +86,9 @@ const TypeSwitcher = (props) => {
       className={`${switcherClass && switcherClass}`}
       anim={animation}
       ref={setSwitcherRef}
-      onClick={toggleType}
+      onClick={() => {
+        if (!disabled) toggleType();
+      }}
     >
       <div
         className={`flex align-center space-center img-${switchTransitionClass} ${

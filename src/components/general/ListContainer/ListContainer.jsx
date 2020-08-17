@@ -4,6 +4,9 @@ import ListItem from "../ListItem/ListItem";
 import TiltButton from "../../navigation/TiltButton/TiltButton";
 import ListController from "../ListContainer/ListController";
 
+import storageService from "../../../services/storageService";
+import { KEY_VIEW } from "../../../services/auth";
+
 const ListContainer = (props) => {
   const emptySelectedState = {
     index: "",
@@ -28,34 +31,55 @@ const ListContainer = (props) => {
     before,
     // playerCoords,
   } = props;
+
   const [didSearch, setDidSearch] = useState(false);
   const [itemsShown, setItemsShown] = useState([]);
   const [listExitClass, setListExitClass] = useState("shown-items");
   const [selected, setSelected] = useState({ ...emptySelectedState });
 
-  const [searchView, setSearchView] = useState("tiles");
+  
+
+  const initStarter = () => {
+    const viewPref = +storageService.loadFromStorage(KEY_VIEW);
+    console.log(viewPref);
+    if (viewPref === 0 || viewPref === 1) {
+      return viewPref;
+    }
+    else return 0;
+  };
+
+  const [initToggle, setInitToggle] = useState(initStarter());
+  const [searchView, setSearchView] = useState(initToggle ? "list" : "tiles");
+
+  // useEffect(() => {
+  //   const initType = initToggle ? "tiles" : "list";
+  //     setSearchView(initType)
+  // }, [])
 
   useEffect(() => {
-    console.log("HERE");
-    if (listItems.length) {
-      if (!didSearch) {
-        setDidSearch(true);
-      }
-      if (!isStaticList && selected.index === "")
-        setListExitClass("exit-class");
-      setTimeout(() => {
-        setItemsShown(listItems);
+    if(listItems !== itemsShown) {
+      console.log("HERE");
+
+      if (listItems.length) {
+        if (!didSearch) {
+          setDidSearch(true);
+        }
         if (!isStaticList && selected.index === "")
-          setListExitClass("shown-items");
-      }, 500);
-    } else {
-      if (didSearch) {
-        setItemsShown(
-          isStaticList ? [] : [{ label: "No Results Found! Try Again" }]
-        );
+          setListExitClass("exit-class");
+        setTimeout(() => {
+          setItemsShown(listItems);
+          if (!isStaticList && selected.index === "")
+            setListExitClass("shown-items");
+        }, 500);
+      } else {
+        if (didSearch) {
+          setItemsShown(
+            isStaticList ? [] : [{ label: "No Results Found! Try Again" }]
+          );
+        }
       }
+      setSelected({ ...emptySelectedState });
     }
-    setSelected({ ...emptySelectedState });
   }, [listItems]);
 
   const onItemClick = (index) => {
@@ -101,10 +125,8 @@ const ListContainer = (props) => {
       ? "column align-center"
       : "wrap align-start tiles-container";
 
-  // containerClass += itemsShown ? " shown-items" : "";
-
   const wrapperClass = isStaticList ? "static-wrap" : "non-static-wrap";
-  // console.log("HERE");
+  console.log("HERE", searchView);
   return (
     <div
       className={`list-container-wrapper flex column align-center space-between ${wrapperClass}`}
@@ -113,7 +135,7 @@ const ListContainer = (props) => {
         className={`list-container flex ${containerClass} space-start ${listExitClass}`}
       >
         {itemsShown.map((item, index) => {
-          // console.log(item);
+          console.log(item);
           const classToAdd = !index
             ? `first-item item${index}`
             : `item${index}`;
@@ -140,7 +162,7 @@ const ListContainer = (props) => {
               activeLinkClass="activeTab"
               isTilt={true}
               buttonStyle={{
-                backgroundImage: `url(${item.img})`,
+                background: item.img ? `url(${item.img})` : `rgba(0, 0, 0, 0.75)`,
                 backgroundSize: "cover",
               }}
               tiltOptions={{ scale: 1.05 }}
@@ -159,6 +181,8 @@ const ListContainer = (props) => {
           onSearchBack={onSearchBack}
           next={next}
           before={before}
+          canToggle={itemsShown.length === 0}
+          initToggle={initToggle}
         />
       ) : null}
     </div>
