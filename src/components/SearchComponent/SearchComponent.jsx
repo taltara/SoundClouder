@@ -17,8 +17,7 @@ const SearchComponent = (props) => {
     onSearchBack,
     next,
     before,
-    playerCoords
-
+    playerCoords,
   } = props;
   const [currSearch, setCurrSearch] = useState("");
   const [searching, setSearching] = useState(false);
@@ -30,8 +29,7 @@ const SearchComponent = (props) => {
   }, [searchResults]);
 
   useEffect(() => {
-    if(searchHistory.length) {
-
+    if (searchHistory.length) {
       saveHistory(saveKey, searchHistory);
     }
   }, [searchHistory]);
@@ -42,9 +40,11 @@ const SearchComponent = (props) => {
     setSearching(true);
     setSearchHistory((prevState) => {
       let history = [...prevState];
-      if(history[0].label !== currSearch) {
-        history.unshift({ label: currSearch });
-      }
+      if (history.length) {
+        if (history[0].label !== currSearch)
+          history.unshift({ label: currSearch });
+      } else history = [{ label: currSearch }];
+
       return history;
     });
     onSearch(currSearch);

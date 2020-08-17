@@ -151,15 +151,15 @@
           background-color: rgba(124, 255, 203, 0.25);
 
           opacity: 1;
-          transform: translateX(5px);
+          // transform: translateX(5px);
           .background-arrow {
             fill: lighten($color: rgba(65, 65, 65, 1), $amount: 5);
-            transform: translateX(85%);
+            transform: translateX(180px);
           }
 
           .arrow {
             fill: rgba(65, 65, 65, 1);
-            transform: translateX(100%);
+            transform: translateX(180px);
           }
         }
         &.no-next {
