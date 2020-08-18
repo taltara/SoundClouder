@@ -7,28 +7,52 @@ import ReactPlayer from "react-player";
 let middleRef = createRef();
 
 const PlayerComponent = (props) => {
-
-  const { track } = props;
+  const { track, storageService, saveKey } = props;
 
   const [playerClass, setPlayerClass] = useState("");
   const [imgStateClass, setImgStateClass] = useState("");
-  const [playerVolume, setPlayerVolume] = useState(0.8);
+
+  const initStarter = () => {
+    const userPref = storageService.loadFromStorage(saveKey);
+    // console.log(userPref);
+    if (userPref && !isNaN(+userPref.playerVolume)) {
+      return userPref.playerVolume;
+    } else return 0.8;
+  };
+
+  const [playerVolume, setPlayerVolume] = useState(initStarter());
   const [playedTrack, setPlayedTrack] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     sCService.initPlayerListeners();
     // getPlayerCoords();
+
   }, []);
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      setUserVolumePref();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+
+  }, [playerVolume])
+
+  const setUserVolumePref = () => {
+    let userPref = { ...storageService.loadFromStorage(saveKey) };
+    userPref.playerVolume = playerVolume;
+    storageService.saveToStorage(saveKey, userPref);
+  };
 
   useEffect(() => {
     setIsPlaying(false);
     setPlayerClass("");
+    setImgStateClass("");
     setTimeout(() => {
       setImgStateClass("shown");
-      // if (window.innerHeight <= 1200)
-        // document.querySelector(".visualAudible__body").style.display = "none";
-    }, 2000);
+    }, 500);
     setPlayedTrack(false);
   }, [track]);
 
@@ -42,10 +66,6 @@ const PlayerComponent = (props) => {
     });
   }, [isPlaying]);
 
-  // const getPlayerCoords = () => {
-  //   setPlayerCoords(middleRef.current.getBoundingClientRect());
-  // };
-
   const onVolumeChange = ({ target }) => {
     // console.log(target.value);
     setPlayerVolume(+target.value);
@@ -53,7 +73,6 @@ const PlayerComponent = (props) => {
 
   const onImgClick = () => {
     // console.log(isPlaying ? "STOPPING" : "PLAYING");
-    debugger;
     setIsPlaying((prevState) => {
       sCService.togglePlay(prevState);
       return !prevState;
@@ -68,11 +87,10 @@ const PlayerComponent = (props) => {
   const toneArmClass = isPlaying ? "arm-shown" : "";
   const recordCenterClass = isPlaying ? "middle-shown" : "";
   const componentClass = isPlaying ? "component-playing" : "";
-
-  // console.log(isPlaying);
+const isLarge = window.innerHeight >= 1200;
   return (
     <div
-      className={`Tilt-inner player-component ${componentClass} flex column align-center space-start`}
+      className={`Tilt-inner player-component ${componentClass} flex column align-center space-center`}
       ref={middleRef}
     >
       {track && track.artwork_url ? (
@@ -99,7 +117,7 @@ const PlayerComponent = (props) => {
           >
             <ReactPlayer
               url={track.permalink_url}
-              width="95%"
+              width={`${isLarge ? 97.5 : 95.75}%`}
               height="100%"
               playing={isPlaying}
               volume={playerVolume}
@@ -127,7 +145,7 @@ const PlayerComponent = (props) => {
             />
           </section>
         </div>
-      ) : null}
+      ) : <p className="init-player-message Tilt-inner">Choose a track to start the <span>party</span>!</p> }
     </div>
   );
 };

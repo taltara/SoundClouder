@@ -5,14 +5,24 @@ import utilServices from "../../../services/utilService";
 import { useSpring, animated } from "react-spring";
 
 const ListItem = (props) => {
+  const {
+    item,
+    onItemClick,
+    index,
+    classAdd,
+    isStaticList,
+    animName,
+    labelStyleAdd,
+  } = props;
 
-  const { item, onItemClick, index, classAdd, isStaticList, animName, labelStyleAdd } = props;
   const [key, setKey] = useState(1);
   const [isHovering, setIsHovering] = useState(false);
+  const [itemClass, setItemClass] = useState("");
 
   useEffect(() => {
-    utilServices.setButtonRippleListeners("activeTab");
+    if(isStaticList) utilServices.setButtonRippleListeners("activeTab");
   }, []);
+
 
 
   const msPerLetter = 115;
@@ -32,25 +42,28 @@ const ListItem = (props) => {
     },
   });
 
-
   const textToShow =
-  (isLongTLabel && isHovering) && labelStyleAdd !== {} ? (
-      <animated.div style={scrolling} className="item-label">
-        {item.label}
-      </animated.div>
+    isLongTLabel && isHovering ? (
+      <span className="title-span" style={labelStyleAdd}>
+        <animated.div style={scrolling} className="item-label">
+          {item.label}
+        </animated.div>
+      </span>
     ) : (
-      <div className="item-label label-div" style={{ ...labelStyleAdd }}>{item.label}</div>
+      <span className="title-span" style={labelStyleAdd}>
+        <div className="item-label label-div">{item.label}</div>
+      </span>
     );
 
   const onClickFunc = onItemClick ? () => onItemClick(index) : null;
+  const animationName = isStaticList ? animName : "";
   return (
     <li
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={onClickFunc}
-      className={`list-item ${classAdd} flex align-center space-start`}
-      anim={animName}
-
+      className={`list-item ${classAdd} flex align-center space-start ${itemClass}`}
+      anim={animationName}
     >
       {textToShow}
     </li>

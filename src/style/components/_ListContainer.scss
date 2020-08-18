@@ -1,20 +1,15 @@
 .list-container-wrapper {
   height: calc(100% - 61px);
-  // padding: 0 5px;
+
   .list-container {
-    transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
+    transition: 0.5s cubic-bezier(0.42, 0.5, 0.25, 1);
     overflow: hidden;
     height: 100%;
     width: 100%;
-    transform: translateX(-150%) skewX(-10deg);
-
-    &.shown-items {
-      transform: translateX(0%) skewX(0deg);
-    }
-
+    opacity: 0;
     .list-item {
       transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
-      // max-width: 300px;
+
       height: calc(100% / 6);
       width: 100%;
       padding: 5px 10px;
@@ -31,8 +26,12 @@
         border-top: 2px solid rgba(0, 0, 0, 0.05);
       }
 
-      .label-div {
+      .title-span {
         transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
+      }
+
+      &.overflowing {
+        overflow: hidden;
       }
     }
 
@@ -44,9 +43,6 @@
         width: 100px;
         height: 100px;
         overflow: hidden;
-        &.tile-tilt {
-          // white-space: nowrap;
-        }
 
         p {
           align-self: flex-end;
@@ -64,25 +60,28 @@
 
         .tilt-button {
           width: 150px;
-        height: 150px;
+          height: 150px;
         }
       }
     }
 
     &.tiles-container {
-      // height: fit-content;
       justify-content: center;
       & > * {
         margin: 10px;
       }
     }
 
-    &.exit-class {
-      opacity: 0;
-    }
-
     @media (min-height: 1200px) {
       align-items: center;
+    }
+
+    &.overflowing {
+      overflow: unset;
+    }
+
+    &.shown-items {
+      opacity: 1;
     }
   }
   .list-controller {
@@ -115,9 +114,6 @@
 
       cursor: pointer;
       transition: 0.25s cubic-bezier(0.42, 0.5, 0.25, 1);
-      // svg {
-      //   fill: rgba(65, 65, 65, 0.5);
-      // }
 
       .arrow-hover-span {
         width: 100%;
@@ -156,7 +152,7 @@
           }
 
           &:hover {
-            background-color: rgba(124, 255, 203, 0.25);
+            background-color: rgba(124, 255, 203, 0.5);
 
             opacity: 1;
             transform: translateX(-5px);
@@ -174,13 +170,10 @@
 
         &:hover {
           background-color: rgba(124, 255, 203, 0.25);
-
           opacity: 1;
-          // transform: translateX(5px);
           .background-arrow {
             fill: lighten($color: rgba(65, 65, 65, 1), $amount: 5);
             transform: translateX(180px);
-
           }
 
           .arrow {
@@ -189,15 +182,13 @@
           }
 
           @media (min-height: 1200px) {
-            .background-arrow{
+            .background-arrow {
               transform: translateX(325px);
-            } 
+            }
             .arrow {
               transform: translateX(330px);
             }
           }
-
-          
         }
         &.no-next {
           &:hover {
@@ -252,8 +243,6 @@
           height: calc(20% - 44px / 5);
         }
       }
-
-      transform: translateX(0%) skewX(0deg);
     }
   }
 }

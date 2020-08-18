@@ -5,7 +5,7 @@ import TiltButton from "../../navigation/TiltButton/TiltButton";
 import ListController from "../ListContainer/ListController";
 
 import storageService from "../../../services/storageService";
-import { KEY_VIEW } from "../../../services/auth";
+import { KEY_USER_PREF } from "../../../services/auth";
 
 const ListContainer = (props) => {
   const emptySelectedState = {
@@ -25,61 +25,53 @@ const ListContainer = (props) => {
     listItems,
     isStaticList,
     setChosenItem,
-    onSearchNext,
     onSearchBack,
     next,
-    before,
-    // playerCoords,
+    theme,
   } = props;
 
   const [didSearch, setDidSearch] = useState(false);
   const [itemsShown, setItemsShown] = useState([]);
-  const [listExitClass, setListExitClass] = useState("shown-items");
+  const [listExitClass, setListExitClass] = useState("");
+  const [containerClass, setContainerClass] = useState("");
   const [selected, setSelected] = useState({ ...emptySelectedState });
 
-  
-
   const initStarter = () => {
-    const viewPref = +storageService.loadFromStorage(KEY_VIEW);
-    console.log(viewPref);
-    if (viewPref === 0 || viewPref === 1) {
-      return viewPref;
-    }
-    else return 0;
+    const userPref = storageService.loadFromStorage(KEY_USER_PREF);
+    if (
+      userPref &&
+      (+userPref.searchView === 0 || +userPref.searchView === 1)
+    ) {
+      return userPref.searchView;
+    } else return 1;
   };
 
   const [initToggle, setInitToggle] = useState(initStarter());
   const [searchView, setSearchView] = useState(initToggle ? "list" : "tiles");
 
-  // useEffect(() => {
-  //   const initType = initToggle ? "tiles" : "list";
-  //     setSearchView(initType)
-  // }, [])
-
   useEffect(() => {
-    if(listItems !== itemsShown) {
-      console.log("HERE");
-
-      if (listItems.length) {
-        if (!didSearch) {
-          setDidSearch(true);
-        }
-        if (!isStaticList && selected.index === "")
-          setListExitClass("exit-class");
-        setTimeout(() => {
-          setItemsShown(listItems);
-          if (!isStaticList && selected.index === "")
-            setListExitClass("shown-items");
-        }, 500);
-      } else {
-        if (didSearch) {
-          setItemsShown(
-            isStaticList ? [] : [{ label: "No Results Found! Try Again" }]
-          );
-        }
+    if (listItems.length) {
+      if (!didSearch) {
+        setDidSearch(true);
       }
-      setSelected({ ...emptySelectedState });
+
+      setTimeout(() => {
+        setItemsShown(listItems);
+      }, 500);
+    } else {
+      if (didSearch) {
+        setItemsShown(
+          isStaticList ? [] : [{ label: "No Results Found! Try Again" }]
+        );
+      }
     }
+    setSelected({ ...emptySelectedState });
+    if (!isStaticList) {
+      setListExitClass("");
+    }
+    setTimeout(() => {
+      setListExitClass("shown-items");
+    }, 500);
   }, [listItems]);
 
   const onItemClick = (index) => {
@@ -88,59 +80,50 @@ const ListContainer = (props) => {
 
       setTimeout(() => {
         setSelected({ ...emptySelectedState });
-      }, 1000);
+        setChosenItem(index);
+      }, 500);
+    } else {
+      setChosenItem(index);
     }
-    setChosenItem(index);
+    setContainerClass("overflowing");
+    setTimeout(() => {
+      setContainerClass("");
+    }, 500);
   };
 
-  const getAnimationCoords = () => {
-    // console.log(playerCoords, selected.coords);
+  const getAnimationStyle = () => {
     const isLarge = window.innerHeight >= 1200;
-    //   return selected.coords
-    //     ? {
-    //         transform: `translateX(${-(selected.coords.left -
-    //         playerCoords.left) +
-    //         isLarge
-    //           ? 400
-    //           : 200}px) translateY(${
-    //           -(selected.coords.top - playerCoords.top) + isLarge ? -400 : -200
-    //         }px)`,
-    //         position: "absolute",
-    //         zIndex: 100,
-    //         opacity: 0,
-    //       }
-    //     : {};
     return {
-      transform: `translateX(${isLarge ? "300" : "200"}%) translateY(-${
-        selected.index * isLarge ? 50 : 30
-      }px)`,
+      transform: `translateX(${isLarge ? "200" : "100"}%)`,
       position: "absolute",
       zIndex: 100,
       opacity: 0,
+      transition: "0.1s ease-in-out",
     };
   };
 
-  let containerClass =
+  let containerClassAdd =
     isStaticList || searchView === "list"
       ? "column align-center"
       : "wrap align-start tiles-container";
 
   const wrapperClass = isStaticList ? "static-wrap" : "non-static-wrap";
-  console.log("HERE", searchView);
+
   return (
     <div
       className={`list-container-wrapper flex column align-center space-between ${wrapperClass}`}
     >
       <ul
-        className={`list-container flex ${containerClass} space-start ${listExitClass}`}
+        className={`list-container flex ${containerClassAdd} space-start ${listExitClass} ${containerClass}`}
       >
         {itemsShown.map((item, index) => {
-          console.log(item);
-          const classToAdd = !index
-            ? `first-item item${index}`
-            : `item${index}`;
+          let classToAdd = !index
+            ? `first-item item${index} `
+            : `item${index} `;
+          classToAdd += containerClass;
+
           const labelStyleToAdd =
-            selected.index !== index ? {} : getAnimationCoords();
+            selected.index !== index ? {} : getAnimationStyle();
           const tileStyleToAdd = selected.index === index ? "tile-play" : "";
           const clickFunc = didSearch && !listItems.length ? null : onItemClick;
           return isStaticList || searchView === "list" || !clickFunc ? (
@@ -153,6 +136,7 @@ const ListContainer = (props) => {
               isStaticList={isStaticList}
               animName={selected.index !== index ? "activeTab" : ""}
               labelStyleAdd={labelStyleToAdd}
+              selectedExists={selected.index !== ""}
             />
           ) : (
             <TiltButton
@@ -162,7 +146,9 @@ const ListContainer = (props) => {
               activeLinkClass="activeTab"
               isTilt={true}
               buttonStyle={{
-                background: item.img ? `url(${item.img})` : `rgba(0, 0, 0, 0.75)`,
+                background: item.img
+                  ? `url(${item.img})`
+                  : `rgba(0, 0, 0, 0.75)`,
                 backgroundSize: "cover",
               }}
               tiltOptions={{ scale: 1.05 }}
@@ -177,12 +163,11 @@ const ListContainer = (props) => {
       {!isStaticList ? (
         <ListController
           toggleView={setSearchView}
-          onSearchNext={onSearchNext}
           onSearchBack={onSearchBack}
           next={next}
-          before={before}
           canToggle={itemsShown.length === 0}
           initToggle={initToggle}
+          theme={theme}
         />
       ) : null}
     </div>

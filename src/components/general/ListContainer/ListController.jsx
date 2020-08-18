@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
+import utilServices from "../../../services/utilService";
 import storageService from "../../../services/storageService";
-import { KEY_VIEW } from "../../../services/auth";
+import { KEY_USER_PREF } from "../../../services/auth";
 
-// import { ReactComponent as ArrowIcon } from "../../../assets/arrow.svg";
 import { ReactComponent as BackArrowIcon } from "../../../assets/full-arrow.svg";
 import { ReactComponent as ArrowIcon } from "../../../assets/right-arrow.svg";
 import { ReactComponent as ListIcon } from "../../../assets/list.svg";
@@ -12,7 +12,11 @@ import { ReactComponent as TilesIcon } from "../../../assets/tiles.svg";
 import TypeSwitcher from "../../navigation/TypeSwitcher/TypeSwitcher";
 
 const ListController = (props) => {
-  const { toggleView, onSearchNext, onSearchBack, next, before, canToggle, initToggle } = props;
+  const { toggleView, onSearchNext, next, canToggle, initToggle, theme } = props;
+
+  useEffect(() => {
+    utilServices.setButtonRippleListeners("general");
+  }, [])
 
   const onViewChange = () => {
     let previousView;
@@ -20,12 +24,12 @@ const ListController = (props) => {
       previousView = prevState;
       return prevState === "list" ? "tiles" : "list";
     });
-
-    storageService.saveToStorage(KEY_VIEW, previousView === "list" ? 0 : 1);
+    let currUserPref = {...storageService.loadFromStorage(KEY_USER_PREF)};
+    currUserPref.searchView = previousView === "list" ? 0 : 1;
+    storageService.saveToStorage(KEY_USER_PREF, currUserPref);
   };
 
   const nextClass = !next ? "no-next" : "";
-  const beforeClass = !before ? "no-before" : "";
 
   return (
     <div className="list-controller flex align-center space-between">
@@ -33,14 +37,11 @@ const ListController = (props) => {
         <span
           className={`arrow-hover-span ${nextClass} flex align-center space-center`}
           onClick={() => onSearchNext(next)}
+          anim="general"
         >
           <BackArrowIcon className="background-arrow" />
           <ArrowIcon className="arrow" />
         </span>
-        {/* <span className={`arrow-hover-span back-arrow ${beforeClass} flex align-center space-center`} onClick={() => onSearchBack()}>
-          <BackArrowIcon className="background-arrow" />
-          <ArrowIcon className="arrow" />
-        </span> */}
       </div>
 
       <TypeSwitcher
@@ -56,6 +57,7 @@ const ListController = (props) => {
         swticherLabelClass="switcher-label"
         switchOnStart={true}
         disabled={canToggle}
+        theme={theme}
       />
     </div>
   );

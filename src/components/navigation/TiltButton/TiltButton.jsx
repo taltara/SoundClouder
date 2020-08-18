@@ -10,11 +10,8 @@ const TiltButton = (props) => {
   const {
     label,
     clickData,
-    linkTo,
     activeLink,
     activeLinkClass,
-    // ActiveLinkColor,
-    isLinkToExact,
     isTilt,
     tiltOptions,
     tiltClass,
@@ -82,7 +79,6 @@ const TiltButton = (props) => {
   const addTitleClass = titleClass ? titleClass : "";
   const animationName = animation ? animation : "";
 
-  // console.log(tileStyleClassAdd);
   return (
     <button className="tilt-button-wrap" type={buttonForumType}>
       <Tilt
@@ -90,9 +86,7 @@ const TiltButton = (props) => {
         options={{ ...tiltOptions, ...tiltOptionSet }}
       >
         <li
-          className={`Tilt-inner tilt-button ${innerTiltTypeClass} ${allButtonClass} ${
-            isType("link") && isActive ? activeLinkClass : ""
-          } ${tileStyleClassAdd}`}
+          className={`Tilt-inner tilt-button ${innerTiltTypeClass} ${allButtonClass} ${tileStyleClassAdd}`}
           onClick={() => {
             if (onClick) {
               onClick(clickData);

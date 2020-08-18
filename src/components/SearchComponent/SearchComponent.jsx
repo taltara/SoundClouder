@@ -14,9 +14,8 @@ const SearchComponent = (props) => {
     saveKey,
     searchHistory,
     onSearchNext,
-    onSearchBack,
     next,
-    before,
+    theme
     // playerCoords,
   } = props;
   const [currSearch, setCurrSearch] = useState("");
@@ -69,7 +68,7 @@ const SearchComponent = (props) => {
           autoFocus={true}
         />
         {searching ? (
-          <LoadingRing />
+          <LoadingRing theme={theme}/>
         ) : (
           <TiltButton
             label={"Go"}
@@ -90,9 +89,8 @@ const SearchComponent = (props) => {
         isStaticList={false}
         setChosenItem={setChosenItem}
         onSearchNext={onSearchNext}
-        onSearchBack={onSearchBack}
         next={next}
-        before={before}
+        theme={theme}
         // playerCoords={playerCoords}
       />
     </div>

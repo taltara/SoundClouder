@@ -1,14 +1,3 @@
-const makeId = (length = 5) => {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-
-  return text;
-};
 
 const shuffle = (a) => {
   var j, x, i;
@@ -54,7 +43,6 @@ const setButtonRippleListeners = (name = "activeTab") => {
 };
 
 export default {
-  makeId,
   shuffle,
   setButtonRippleListeners,
   dynamicSort,

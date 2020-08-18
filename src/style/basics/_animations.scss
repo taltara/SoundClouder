@@ -10,56 +10,6 @@
   }
 }
 
-@keyframes gearturn {
-  0% {
-    transform: rotate(0deg);
-  }
-  33% {
-    transform: rotate(90deg);
-  }
-  66% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(270deg);
-  }
-}
-
-@keyframes blink {
-  0% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-  25% {
-    background-color: rgba(245, 197, 24, 0.5);
-  }
-  50% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-  75% {
-    background-color: rgba(245, 197, 24, 0.5);
-  }
-  100% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-}
-@-webkit-keyframes blink {
-  0% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-  25% {
-    background-color: rgba(245, 197, 24, 0.5);
-  }
-  50% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-  75% {
-    background-color: rgba(245, 197, 24, 0.5);
-  }
-  100% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-}
-
 @keyframes loading-ring {
   0% {
     transform: rotate(0deg);
@@ -98,7 +48,7 @@
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
   }
   20% {
-    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
   }
 
   40% {
@@ -106,7 +56,7 @@
   }
 
   60% {
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   }
   80% {
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);

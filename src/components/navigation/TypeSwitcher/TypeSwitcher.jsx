@@ -15,6 +15,7 @@ const TypeSwitcher = (props) => {
     swticherLabelClass,
     switchOnStart,
     disabled,
+    theme
   } = props;
 
   const [currTypeIndex, setCurrTypeIndex] = useState(initType);
@@ -83,7 +84,7 @@ const TypeSwitcher = (props) => {
   const icon = dataTypes[currTypeIndex].img;
   return (
     <div
-      className={`${switcherClass && switcherClass}`}
+      className={`${switcherClass && switcherClass} switcher-${theme}`}
       anim={animation}
       ref={setSwitcherRef}
       onClick={() => {

@@ -54,4 +54,11 @@
         transform: translateX(-150%);
       }
     }
+
+    &.switcher-light {
+      background-color: rgba(150, 150, 150, 0.15);
+    }
+    &.switcher-dark {
+      background-color: rgba(192, 192, 192, 0.15);
+    }
   }
