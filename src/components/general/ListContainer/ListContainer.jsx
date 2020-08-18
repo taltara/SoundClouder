@@ -71,7 +71,7 @@ const ListContainer = (props) => {
     }
     setTimeout(() => {
       setListExitClass("shown-items");
-    }, 500);
+    }, 1000);
   }, [listItems]);
 
   const onItemClick = (index) => {
