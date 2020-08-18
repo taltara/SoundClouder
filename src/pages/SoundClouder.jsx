@@ -34,7 +34,7 @@ const SoundClouder = (props) => {
 
   const onSearch = (q) => {
     sCService.getCloudSounds({ q }).then((res) => {
-      console.log(res);
+
       setCurrSearch(res.collection);
       setAllSearches([res.collection]);
       setSearchIndex(0);

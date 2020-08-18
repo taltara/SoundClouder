@@ -17,7 +17,7 @@ async function getCloudSounds(searchObj) {
     linked_partitioning: 1,
     offset: 0
   }).then((tracks) => {
-    console.log(tracks);
+
     return Promise.resolve(tracks);
   });
 }
@@ -27,7 +27,7 @@ const getNextTracks = (link) => {
   return fetch(link)
     .then((res) => res.json())
     .then((result) => {
-     console.log(result);
+
      return result;
     });
 };
@@ -38,7 +38,6 @@ async function getSoundCloudPlayer(track_url) {
     maxheight: "100%",
     
   }).then((oEmbed) => {
-    console.log("oEmbed response: ", oEmbed);
     return oEmbed;
   });
 }

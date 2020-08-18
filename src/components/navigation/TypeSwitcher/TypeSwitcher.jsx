@@ -52,7 +52,6 @@ const TypeSwitcher = (props) => {
   };
 
   const toggleType = (isStart = false) => {
-    console.log(disabled, dataTypes[0]);
 
     let newValue =
       currTypeIndex + 1 === dataTypes.length ? 0 : currTypeIndex + 1;

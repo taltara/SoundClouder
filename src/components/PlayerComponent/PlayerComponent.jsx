@@ -14,7 +14,7 @@ const PlayerComponent = (props) => {
 
   const initStarter = () => {
     const userPref = storageService.loadFromStorage(saveKey);
-    // console.log(userPref);
+
     if (userPref && !isNaN(+userPref.playerVolume)) {
       return userPref.playerVolume;
     } else return 0.8;
@@ -67,12 +67,12 @@ const PlayerComponent = (props) => {
   }, [isPlaying]);
 
   const onVolumeChange = ({ target }) => {
-    // console.log(target.value);
+
     setPlayerVolume(+target.value);
   };
 
   const onImgClick = () => {
-    // console.log(isPlaying ? "STOPPING" : "PLAYING");
+
     setIsPlaying((prevState) => {
       sCService.togglePlay(prevState);
       return !prevState;
