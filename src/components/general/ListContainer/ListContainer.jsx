@@ -25,7 +25,7 @@ const ListContainer = (props) => {
     listItems,
     isStaticList,
     setChosenItem,
-    onSearchBack,
+    onSearchNext,
     next,
     theme,
   } = props;
@@ -163,7 +163,7 @@ const ListContainer = (props) => {
       {!isStaticList ? (
         <ListController
           toggleView={setSearchView}
-          onSearchBack={onSearchBack}
+          onSearchNext={onSearchNext}
           next={next}
           canToggle={itemsShown.length === 0}
           initToggle={initToggle}
