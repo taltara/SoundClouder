@@ -11,6 +11,7 @@ const PlayerComponent = (props) => {
 
   const [playerClass, setPlayerClass] = useState("");
   const [imgStateClass, setImgStateClass] = useState("");
+  const [isDraggingVolume, setIsDraggingVolume] = useState(false);
 
   const initStarter = () => {
     const userPref = storageService.loadFromStorage(saveKey);
@@ -83,10 +84,26 @@ const PlayerComponent = (props) => {
     setIsPlaying(toPlay);
   };
 
+  const handleInputMouseDown = () => {
+    if(!isDraggingVolume) {
+
+      setIsDraggingVolume(true);
+    }
+  }
+
+  const handleInputMouseUp = () => {
+    if(isDraggingVolume) {
+      setIsDraggingVolume(false);
+    }
+  }
+
+  
+
   const imgClass = isPlaying ? "shown playing" : "";
   const toneArmClass = isPlaying ? "arm-shown" : "";
   const recordCenterClass = isPlaying ? "middle-shown" : "";
   const componentClass = isPlaying ? "component-playing" : "";
+  const inputClass = isDraggingVolume ? "cursor-grab" : "";
 const isLarge = window.innerHeight >= 1200;
   return (
     <div
@@ -134,12 +151,14 @@ const isLarge = window.innerHeight >= 1200;
             />
             <input
               type="range"
-              className="volume-slider"
+              className={`volume-slider ${inputClass}`}
               orient="vertical"
               min={0}
               step={0.01}
               max={1}
               name="volume"
+              onMouseDown={handleInputMouseDown}
+              onMouseUp={handleInputMouseUp}
               onChange={onVolumeChange}
               value={playerVolume}
             />

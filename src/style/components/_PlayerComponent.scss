@@ -72,6 +72,10 @@
         transform: rotateZ(270deg);
         position: absolute;
         right: -44px;
+
+        &.cursor-grab::-webkit-slider-thumb {
+          cursor: grabbing;
+        }
       }
 
       input[type="range"]::-webkit-slider-runnable-track {
@@ -87,7 +91,12 @@
         cursor: grab;
         background: #434343;
         box-shadow: -80px 0 0 80px $clr1;
+
+        
+        
       }
+
+      
     }
 
     .record-player-center {
@@ -125,7 +134,7 @@
     font-family: animosaExtraBold;
     padding: 0 22px;
     text-align: center;
-
+    pointer-events: none;
     span {
       background: linear-gradient(
         75deg,
