@@ -24,22 +24,39 @@ const PlayerComponent = (props) => {
   const [playerVolume, setPlayerVolume] = useState(initStarter());
   const [playedTrack, setPlayedTrack] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [dynamicSize, setDynamicSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
 
   useEffect(() => {
     sCService.initPlayerListeners();
-    // getPlayerCoords();
 
+    window.addEventListener("resize", () => {
+      updateDimensions();
+    });
+    return window.removeEventListener("resize", () => {
+      updateDimensions();
+    });
   }, []);
 
   useEffect(() => {
-
     const timer = setTimeout(() => {
       setUserVolumePref();
     }, 1000);
 
     return () => clearTimeout(timer);
+  }, [playerVolume]);
 
-  }, [playerVolume])
+  const updateDimensions = () => {
+
+    const dynamicSize = {
+      height: window.innerHeight,
+      width: window.innerWidth,
+    };
+
+    setDynamicSize(dynamicSize);
+  };
 
   const setUserVolumePref = () => {
     let userPref = { ...storageService.loadFromStorage(saveKey) };
@@ -68,12 +85,10 @@ const PlayerComponent = (props) => {
   }, [isPlaying]);
 
   const onVolumeChange = ({ target }) => {
-
     setPlayerVolume(+target.value);
   };
 
   const onImgClick = () => {
-
     setIsPlaying((prevState) => {
       sCService.togglePlay(prevState);
       return !prevState;
@@ -85,26 +100,23 @@ const PlayerComponent = (props) => {
   };
 
   const handleInputMouseDown = () => {
-    if(!isDraggingVolume) {
-
+    if (!isDraggingVolume) {
       setIsDraggingVolume(true);
     }
-  }
+  };
 
   const handleInputMouseUp = () => {
-    if(isDraggingVolume) {
+    if (isDraggingVolume) {
       setIsDraggingVolume(false);
     }
-  }
-
-  
+  };
 
   const imgClass = isPlaying ? "shown playing" : "";
   const toneArmClass = isPlaying ? "arm-shown" : "";
   const recordCenterClass = isPlaying ? "middle-shown" : "";
   const componentClass = isPlaying ? "component-playing" : "";
   const inputClass = isDraggingVolume ? "cursor-grab" : "";
-const isLarge = window.innerHeight >= 1200;
+  const isLarge = dynamicSize.height >= 1200;
   return (
     <div
       className={`Tilt-inner player-component ${componentClass} flex column align-center space-center`}
@@ -164,7 +176,11 @@ const isLarge = window.innerHeight >= 1200;
             />
           </section>
         </div>
-      ) : <p className="init-player-message Tilt-inner">Choose a track to start the <span>party</span>!</p> }
+      ) : (
+        <p className="init-player-message Tilt-inner">
+          Choose a track to start the <span>party</span>!
+        </p>
+      )}
     </div>
   );
 };
